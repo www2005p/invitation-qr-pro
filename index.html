@@ -381,6 +381,26 @@
         }
     </style>
 </head>
+    <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA33qNb_waRLRqgs-ftQC0DW3kbMiYbIXE",
+    authDomain: "invitation-qr-pro.firebaseapp.com",
+    databaseURL: "https://invitation-qr-pro-default-rtdb.firebaseio.com",
+    projectId: "invitation-qr-pro",
+    storageBucket: "invitation-qr-pro.firebasestorage.app",
+    messagingSenderId: "518499227906",
+    appId: "1:518499227906:web:0b3a30ade9d2517be70a1b"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  window.firebaseAuth = auth;
+  window.firebaseOnAuthStateChanged = onAuthStateChanged;
+</script>
 
 <body>
 
