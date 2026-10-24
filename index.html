@@ -1328,5 +1328,62 @@
     </script>
 
 </body>
+    [11:33, 24/10/2026] Patrick: <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA33qNb_waRLRqgs-ftQC0DW3kbMiYbIXE",
+    authDomain: "invitation-qr-pro.firebaseapp.com",
+    databaseURL: "https://invitation-qr-pro-default-rtdb.firebaseio.com",
+    projectId: "invitation-qr-pro",
+    storageBucket: "invitation-qr-pro.firebasestorage.app",
+    messagingSenderId: "518499227906",
+    appId: "1:518499227906:web:0b3a30ade9d2517be70a1b"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  window.firebaseAuth = auth;
+  window.firebaseOnAuthStateChanged = onAuthStateChanged;
+</script>
+[11:34, 24/10/2026] Patrick: <div id="connexion" style="position:fixed;inset:0;background:#f1f5f9;z-index:99999;display:flex;align-items:center;justify-content:center;font-family:Arial,sans-serif">
+  <form id="formConnexion" style="background:white;padding:25px;border-radius:12px;width:85%;max-width:350px;box-shadow:0 4px 15px #ccc">
+    <h2 style="text-align:center">🔐 INVITATION QR PRO</h2>
+    <p>Connecte-toi pour accéder à ton application.</p>
+    <input id="emailConnexion" type="email" placeholder="Ton adresse e-mail" required style="width:100%;padding:12px;margin:8px 0;box-sizing:border-box">
+    <input id="motDePasseConnexion" type="password" placeholder="Ton mot de passe" required style="width:100%;padding:12px;margin:8px 0;box-sizing:border-box">
+    <button type="submit" style="width:100%;padding:12px;background:#2563eb;color:white;border:0;border-radius:6px">Se connecter</button>
+    <p id="messageConnexion" style="color:#b91c1c"></p>
+  </form>
+</div>
+
+<script type="module">
+  import { signInWithEmailAndPassword, onAuthStateChanged, signOut }
+    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+  const auth = window.firebaseAuth;
+  const ecran = document.getElementById("connexion");
+  const message = document.getElementById("messageConnexion");
+
+  document.getElementById("formConnexion").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    message.textContent = "Connexion en cours...";
+    try {
+      await signInWithEmailAndPassword(
+        auth,
+        document.getElementById("emailConnexion").value.trim(),
+        document.getElementById("motDePasseConnexion").value
+      );
+    } catch (erreur) {
+      message.textContent = "Connexion impossible. Vérifie ton e-mail et ton mot de passe.";
+    }
+  });
+
+  onAuthStateChanged(auth, (utilisateur) => {
+    ecran.style.display = utilisateur ? "none" : "flex";
+  });
+</script>
 
 </html>
